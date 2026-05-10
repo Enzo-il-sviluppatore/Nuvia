@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuviá — Book Two: Il Libro Avanzato</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Book-two hero — blue/purple gradient ── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #F0F4FF 0%, #EBF1FF 45%, #F3EAFF 100%);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center; padding: 4rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,88,196,.08) 0%, transparent 70%);
+      top: -150px; right: -150px; pointer-events: none;
+    }
+    #hero::after {
+      content: ''; position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(112,48,184,.06) 0%, transparent 70%);
+      bottom: -100px; left: -100px; pointer-events: none;
+    }
+    .h-dots { display: flex; gap: .5rem; margin-bottom: 1.6rem; position: relative; z-index: 1; animation: fu .6s ease both; }
+    .h-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    #h-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(5rem, 14vw, 9rem); font-weight: 300;
+      color: var(--blue); letter-spacing: .05em; line-height: 1;
+      position: relative; z-index: 1;
+      animation: fu .6s .1s ease both; opacity: 0; animation-fill-mode: forwards;
+    }
+    #h-tag {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: clamp(.68rem, 1.8vw, .82rem); letter-spacing: .3em; text-transform: uppercase;
+      color: var(--muted); margin-top: 1.2rem;
+      position: relative; z-index: 1;
+      animation: fu .6s .2s ease both; opacity: 0; animation-fill-mode: forwards;
+    }
+    #h-sub {
+      font-family: 'Cormorant Garamond', serif; font-style: italic;
+      font-size: clamp(1.05rem, 2.8vw, 1.4rem);
+      color: var(--muted); margin-top: .9rem; max-width: 480px;
+      position: relative; z-index: 1;
+      animation: fu .6s .3s ease both; opacity: 0; animation-fill-mode: forwards;
+    }
+    .h-pills {
+      display: flex; flex-wrap: wrap; gap: .55rem; justify-content: center;
+      margin-top: 1.9rem; position: relative; z-index: 1;
+      animation: fu .6s .45s ease both; opacity: 0; animation-fill-mode: forwards;
+    }
+    .h-pill {
+      font-family: 'Josefin Sans', sans-serif; font-size: .68rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .38rem 1rem; border-radius: 20px; border: 1.5px solid;
+    }
+    .p1 { color: var(--blue);   border-color: var(--blue);   background: var(--blue-lt);   }
+    .p2 { color: var(--purple); border-color: var(--purple); background: var(--purple-lt); }
+    .p3 { color: var(--sage);   border-color: var(--sage);   background: var(--sage-lt);   }
+    .p4 { color: var(--gold);   border-color: var(--gold);   background: var(--gold-lt);   }
+    #h-scroll {
+      position: absolute; bottom: 2.5rem;
+      font-family: 'Josefin Sans', sans-serif; font-size: .58rem;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; gap: .45rem;
+      animation: fu .6s .8s ease both; opacity: 0; animation-fill-mode: forwards;
+    }
+    #h-scroll::after { content: ''; width: 1px; height: 34px; background: linear-gradient(to bottom, var(--blue), transparent); }
+
+    /* ── Nav back link ── */
+    .nav-back {
+      display: flex; align-items: center; gap: .5rem;
+      padding: .7rem 1.5rem .9rem;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color .16s;
+    }
+    .nav-back:hover { color: var(--blue); }
+    .nav-back::before { content: '←'; font-size: .85rem; }
+
+    /* ── Book 2 accent overrides (blue/purple theme) ── */
+    .b2 .ch-ey, .b2 .ch-ti em { color: var(--blue); }   .b2 .ch-rule { background: var(--blue); }
+    .b2p .ch-ey, .b2p .ch-ti em { color: var(--purple); } .b2p .ch-rule { background: var(--purple); }
+    .b2s .ch-ey, .b2s .ch-ti em { color: var(--sage); }   .b2s .ch-rule { background: var(--sage); }
+    .b2g .ch-ey, .b2g .ch-ti em { color: var(--gold); }   .b2g .ch-rule { background: var(--gold); }
+    .b2c .ch-ey, .b2c .ch-ti em { color: var(--coral); }  .b2c .ch-rule { background: var(--coral); }
+
+    /* Color swatch grid */
+    .color-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: .75rem; margin: 1.5rem 0;
+    }
+    .color-swatch {
+      border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+    .swatch-block { height: 52px; }
+    .swatch-info { background: var(--white); padding: .55rem .65rem; }
+    .swatch-nv { font-family: 'Cormorant Garamond', serif; font-size: .98rem; font-weight: 700; color: var(--text); display: block; }
+    .swatch-en { font-size: .72rem; color: var(--muted); font-style: italic; }
+
+    /* ── days/months compact grid ── */
+    .day-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: .7rem; margin: 1.4rem 0;
+    }
+    .day-card {
+      background: var(--white); border-radius: 9px; padding: .85rem 1rem;
+      border: 1.5px solid var(--border); text-align: center;
+    }
+    .day-nv { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 700; color: var(--blue); display: block; }
+    .day-en { font-size: .75rem; color: var(--muted); font-family: 'Josefin Sans', sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+
+    .month-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: .6rem; margin: 1.4rem 0; }
+    .month-card { background: var(--white); border-radius: 9px; padding: .7rem .8rem; border: 1.5px solid var(--border); }
+    .month-num { font-family: 'Josefin Sans', sans-serif; font-size: .58rem; font-weight: 700; letter-spacing: .1em; color: var(--muted); }
+    .month-nv { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700; color: var(--purple); display: block; }
+
+    /* ── Luna avatar helper (new character, purple) ── */
+  </style>
+</head>
+<body>
+
+<div id="overlay" onclick="closeNav()"></div>
+<button id="nav-toggle" onclick="toggleNav()" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<nav id="nav">
+  <div id="nav-hd">
+    <div id="nav-logo">Nuviá</div>
+    <div id="nav-sub">Book Two</div>
+  </div>
+  <a href="index.html" class="nav-back">Dashboard</a>
+  <ul>
+    <li><a href="#hero"><span class="cn">✦</span> Introduction</a></li>
+    <li><a href="#ch1"><span class="cn">01</span> Review &amp; Bridge</a></li>
+    <li><a href="#ch2"><span class="cn">02</span> Prepositions</a></li>
+    <li><a href="#ch3"><span class="cn">03</span> Conjunctions</a></li>
+    <li><a href="#ch4"><span class="cn">04</span> Object Pronouns</a></li>
+    <li><a href="#ch5"><span class="cn">05</span> Progressive &amp; Modals</a></li>
+    <li><a href="#ch6"><span class="cn">06</span> Comparatives</a></li>
+    <li><a href="#ch7"><span class="cn">07</span> Time, Days &amp; Dates</a></li>
+    <li><a href="#ch8"><span class="cn">08</span> Colors &amp; Descriptions</a></li>
+    <li><a href="#ch9"><span class="cn">09</span> Places &amp; Directions</a></li>
+    <li><a href="#ch10"><span class="cn">10</span> Food &amp; Daily Life</a></li>
+    <li><a href="#ch11"><span class="cn">11</span> Feelings &amp; Emotions</a></li>
+    <li><a href="#ch12"><span class="cn">12</span> Extended Dialogues</a></li>
+  </ul>
+</nav>
+
+<div id="main">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="h-dots">
+    <span style="background:var(--blue)"></span>
+    <span style="background:var(--purple)"></span>
+    <span style="background:var(--sage)"></span>
+    <span style="background:var(--gold)"></span>
+    <span style="background:var(--coral)"></span>
+  </div>
+  <div id="h-title">Nuviá</div>
+  <div id="h-tag">Book Two &nbsp;·&nbsp; Il Libro Avanzato</div>
+  <div id="h-sub">Building fluency — more grammar, more expression, more Nuviá.</div>
+  <div class="h-pills">
+    <span class="h-pill p1">Prepositions</span>
+    <span class="h-pill p2">Pronouns</span>
+    <span class="h-pill p3">Modals</span>
+    <span class="h-pill p4">Time &amp; Dates</span>
+  </div>
+  <div id="h-scroll">Begin</div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 1 — REVIEW & BRIDGE
+══════════════════════════════════════════ -->
+<section class="ch b2" id="ch1">
+  <div class="ch-hd"><div class="ch-ey">Chapter One</div><h2 class="ch-ti">Review <em>&amp; Bridge</em></h2><div class="ch-rule"></div></div>
+  <div class="prose">
+    <p>Welcome to Book Two. Before moving forward, this chapter consolidates everything from Book One and introduces the tools that will carry you through intermediate Nuviá. By the end of this book you will be able to describe time, location, comparisons, feelings, and daily life — and construct sentences far more complex than Book One allowed.</p>
+  </div>
+
+  <div class="bx b"><div class="lb">Book One at a Glance</div>
+    <table class="nt" style="margin:0;">
+      <thead><tr><th>Topic</th><th>Core Rule</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Pronunciation</td><td>Every letter spoken; stress on penultimate</td><td class="nv">parLAmos</td></tr>
+        <tr><td>Articles</td><td>Consonant start = il/un; vowel start = la/una</td><td class="nv">il car · la apple</td></tr>
+        <tr><td>Plurals</td><td>Masc → add -i; Fem → -a becomes -e; -zione → -i</td><td class="nv">i cari · le case</td></tr>
+        <tr><td>Verb endings</td><td>Present: -o -as -a -amos -ate -an</td><td class="nv">parlo · parlas</td></tr>
+        <tr><td>Past tense</td><td>Insert -e- before endings</td><td class="nv">parleo · parleas</td></tr>
+        <tr><td>Future</td><td>va + infinitive</td><td class="nv">va parlare</td></tr>
+        <tr><td>Pronoun drop</td><td>Iu and Tu optional when context clear</td><td class="nv">Parlo = I speak</td></tr>
+        <tr><td>Negation</td><td>no before verb</td><td class="nv">No parlo</td></tr>
+        <tr><td>Questions</td><td>Intonation or ke particle</td><td class="nv">Parlas? · Ke parlas?</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bx s"><div class="lb">What's New in Book Two</div>
+    <p>Book Two introduces: <strong>prepositions</strong>, <strong>conjunctions</strong>, <strong>object pronouns</strong>, <strong>progressive and modal verbs</strong>, <strong>comparatives</strong>, <strong>time expressions</strong>, <strong>colors</strong>, <strong>places and directions</strong>, <strong>food vocabulary</strong>, and <strong>emotional expression</strong>. Each chapter builds on the last.</p>
+  </div>
+
+  <div class="ds"><div class="dt">Marco, Sofia, Kai — and a New Friend</div>
+    <div class="de">
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#E8431C"/><circle cx="23" cy="18" r="8" fill="#F0C090"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F0C090"/><rect x="16" y="12" width="14" height="8" rx="4" fill="#4A2010"/></svg></div>
+        <div class="bw"><span class="bn">Marco</span><div class="bu"><span class="nv">Salé, amicos! Parlo Nuviá desde il libro uno.</span><span class="en">Hello, friends! I've spoken Nuviá since Book One.</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Salé! Esto aquí por aprendare Nuviá también!</span><span class="en">Hello! I'm here to learn Nuviá too!</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#C98A0A"/><circle cx="23" cy="18" r="8" fill="#F8D8B0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F8D8B0"/><path d="M15 14 Q23 9 31 14 Q29 10 23 9 Q17 10 15 14Z" fill="#3A1A08"/></svg></div>
+        <div class="bw"><span class="bn">Sofia</span><div class="bu"><span class="nv">Bienvenida, Luna! Il libro du est multo interesante.</span><span class="en">Welcome, Luna! Book Two is very interesting.</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica 1</h3><div class="sb">Practice · Review</div>
+    <ul class="tq">
+      <li>Conjugate <em>andare</em> (to go) in the present, all 6 forms.</li>
+      <li>Make plural: <em>la ciudá</em> (city), <em>il libro</em> (book), <em>la educazióne</em>.</li>
+      <li>Translate using past tense: <em>We spoke, she saw, they went</em>.</li>
+      <li>Translate: <em>Do you want to learn Nuviá?</em> (use ke method)</li>
+      <li>Translate with pronoun drop: <em>I don't want to go</em>.</li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Ando · andas · anda · andamos · andate · andan</li>
+      <li>le ciudadi · i libri · le educazióni</li>
+      <li>Nu parleamos · Ila videa · Ilos andean</li>
+      <li>Ke volas aprendare Nuviá?</li>
+      <li>No volo andare</li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 2 — PREPOSITIONS
+══════════════════════════════════════════ -->
+<section class="ch b2p" id="ch2">
+  <div class="ch-hd"><div class="ch-ey">Chapter Two</div><h2 class="ch-ti">Prepositions <em>&amp; Location</em></h2><div class="ch-rule"></div></div>
+  <div class="prose">
+    <p>Prepositions connect nouns to the rest of a sentence, expressing location, direction, time, and relationship. In Nuviá they are short, invariable words that precede the noun they govern.</p>
+  </div>
+
+  <table class="nt">
+    <thead><tr><th>Nuviá</th><th>English</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">de</td><td>of / from</td><td><span class="nv">il libro de la vida</span> — the book of life</td></tr>
+      <tr><td class="nv">a</td><td>to / at / toward</td><td><span class="nv">Ando a la casa</span> — I'm going to the house</td></tr>
+      <tr><td class="nv">en</td><td>in / inside</td><td><span class="nv">Est en il parko</span> — She is in the park</td></tr>
+      <tr><td class="nv">con</td><td>with</td><td><span class="nv">Parlo con amicos</span> — I speak with friends</td></tr>
+      <tr><td class="nv">sin</td><td>without</td><td><span class="nv">Cafe sin lecho</span> — coffee without milk</td></tr>
+      <tr><td class="nv">por</td><td>for / because of / through</td><td><span class="nv">Esto aquí por tu</span> — I'm here because of you</td></tr>
+      <tr><td class="nv">ante</td><td>before (position / time)</td><td><span class="nv">Ante la casa</span> — in front of the house</td></tr>
+      <tr><td class="nv">pos</td><td>after (position / time)</td><td><span class="nv">Pos il ceno</span> — after dinner</td></tr>
+      <tr><td class="nv">entre</td><td>between</td><td><span class="nv">Entre il mar e il ciel</span> — between the sea and the sky</td></tr>
+      <tr><td class="nv">sobre</td><td>on / above / about</td><td><span class="nv">Il libro sobre la tabla</span> — the book on the table</td></tr>
+      <tr><td class="nv">bajo</td><td>under / below</td><td><span class="nv">Bajo il ponte</span> — under the bridge</td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx p"><div class="lb">Contractions with il</div>
+    <p>When <strong>de</strong> or <strong>a</strong> immediately precede the masculine article <strong>il</strong>, they contract:</p>
+    <ul class="pl" style="margin:.7rem 0 0;">
+      <li><span class="pn p">de + il → del</span><span class="pe">del libro — of the book</span></li>
+      <li><span class="pn p">a + il → al</span><span class="pe">al parko — to the park</span></li>
+    </ul>
+    <p style="margin-top:.75rem;">These contractions do <em>not</em> apply to the feminine article <strong>la</strong>: <em>de la casa</em> stays <em>de la casa</em>.</p>
+  </div>
+
+  <div class="ds"><div class="dt">Using Prepositions</div>
+    <div class="de">
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Onde andas pos il ceno?</span><span class="en">Where are you going after dinner?</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Ando al parko con Sofia. Veni con nos!</span><span class="en">I'm going to the park with Sofia. Come with us!</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Vale! Ma parlo con Marco ante.</span><span class="en">Okay! But I'll speak with Marco first (before).</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica 2</h3><div class="sb">Practice · Prepositions</div>
+    <ul class="tq">
+      <li>Translate: <em>I am in the house</em></li>
+      <li>Translate: <em>The book of life</em> (use contraction)</li>
+      <li>Translate: <em>She goes to the park after school</em></li>
+      <li>Translate: <em>Between the sea and the sky</em></li>
+      <li>Translate: <em>Coffee without milk, please</em></li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Esto en la casa</li>
+      <li>Il libro de la vida <span>— "del" contraction not used here since it's "la"</span></li>
+      <li>Ila anda al parko pos la escola</li>
+      <li>Entre il mar e il ciel</li>
+      <li>Cafe sin lecho, per favor</li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 3 — CONJUNCTIONS
+══════════════════════════════════════════ -->
+<section class="ch b2s" id="ch3">
+  <div class="ch-hd"><div class="ch-ey">Chapter Three</div><h2 class="ch-ti">Conjunctions <em>&amp; Complex Sentences</em></h2><div class="ch-rule"></div></div>
+  <div class="prose">
+    <p>Conjunctions link clauses and ideas together. With them, you can express conditions, reasons, contrasts, and sequences — moving from simple statements into fully formed thoughts.</p>
+  </div>
+
+  <table class="nt">
+    <thead><tr><th>Nuviá</th><th>English</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">e</td><td>and</td><td><span class="nv">Parlo e escucho</span> — I speak and listen</td></tr>
+      <tr><td class="nv">o</td><td>or</td><td><span class="nv">Te o cafe?</span> — Tea or coffee?</td></tr>
+      <tr><td class="nv">ma</td><td>but</td><td><span class="nv">Volo andare, ma no posso</span> — I want to go but I can't</td></tr>
+      <tr><td class="nv">porque</td><td>because</td><td><span class="nv">Parlo porque amo Nuviá</span> — I speak because I love Nuviá</td></tr>
+      <tr><td class="nv">quando</td><td>when</td><td><span class="nv">Quando parlas, escucho</span> — When you speak, I listen</td></tr>
+      <tr><td class="nv">si</td><td>if</td><td><span class="nv">Si parlas, entiende</span> — If you speak, (he/she) understands</td></tr>
+      <tr><td class="nv">aunque</td><td>although / even though</td><td><span class="nv">Aunque est tarde, parlo</span> — Although it's late, I speak</td></tr>
+      <tr><td class="nv">mientras</td><td>while</td><td><span class="nv">Mangio mientras parlas</span> — I eat while you speak</td></tr>
+      <tr><td class="nv">antes ke</td><td>before (conjunction)</td><td><span class="nv">Parla antes ke andas</span> — Speak before you go</td></tr>
+      <tr><td class="nv">pos ke</td><td>after (conjunction)</td><td><span class="nv">Pos ke mangeamos, andamos</span> — After we eat, we go</td></tr>
+      <tr><td class="nv">entonces</td><td>then / so</td><td><span class="nv">Parlas bien, entonces entiendo</span> — You speak well, so I understand</td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx s"><div class="lb">Sentence Structure with Conjunctions</div>
+    <p>The standard order stays <strong>Subject + Verb + Object</strong> in both clauses. The conjunction simply connects them:</p>
+    <ul class="pl" style="margin:.7rem 0 0;">
+      <li><span class="pn s">Parlo Nuviá porque amo la língua.</span><span class="pe">I speak Nuviá because I love the language.</span></li>
+      <li><span class="pn s">Si parlas lento, entiendo mejor.</span><span class="pe">If you speak slowly, I understand better.</span></li>
+      <li><span class="pn s">Volo andare, ma est tarde.</span><span class="pe">I want to go, but it's late.</span></li>
+    </ul>
+  </div>
+
+  <div class="ds"><div class="dt">A Decision</div>
+    <div class="de">
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#C98A0A"/><circle cx="23" cy="18" r="8" fill="#F8D8B0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F8D8B0"/><path d="M15 14 Q23 9 31 14 Q29 10 23 9 Q17 10 15 14Z" fill="#3A1A08"/></svg></div>
+        <div class="bw"><span class="bn">Sofia</span><div class="bu"><span class="nv">Volas te o cafe, Luna?</span><span class="en">Do you want tea or coffee, Luna?</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Volo cafe, aunque est sera já.</span><span class="en">I want coffee, even though it's already evening.</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#C98A0A"/><circle cx="23" cy="18" r="8" fill="#F8D8B0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F8D8B0"/><path d="M15 14 Q23 9 31 14 Q29 10 23 9 Q17 10 15 14Z" fill="#3A1A08"/></svg></div>
+        <div class="bw"><span class="bn">Sofia</span><div class="bu"><span class="nv">Entonces parleamos mientras bebemos!</span><span class="en">Then we'll talk while we drink!</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica 3</h3><div class="sb">Practice · Conjunctions</div>
+    <ul class="tq">
+      <li>Translate: <em>I speak because I love Nuviá</em></li>
+      <li>Translate: <em>Tea or coffee?</em></li>
+      <li>Translate: <em>Although it's late, we go</em></li>
+      <li>Translate: <em>If you speak slowly, I understand</em></li>
+      <li>Write a sentence using <em>mientras</em></li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Parlo porque amo Nuviá</li>
+      <li>Te o cafe?</li>
+      <li>Aunque est tarde, andamos</li>
+      <li>Si parlas lento, entiendo</li>
+      <li><em>Any valid sentence</em> — e.g. Mangio mientras escucho musico. <span>I eat while I listen to music.</span></li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 4 — OBJECT PRONOUNS
+══════════════════════════════════════════ -->
+<section class="ch b2g" id="ch4">
+  <div class="ch-hd"><div class="ch-ey">Chapter Four</div><h2 class="ch-ti">Object <em>Pronouns</em></h2><div class="ch-rule"></div></div>
+  <div class="prose">
+    <p>Object pronouns replace a noun that receives the action of a verb. In Nuviá they are placed <strong>directly before the verb</strong>.</p>
+  </div>
+
+  <table class="nt">
+    <thead><tr><th>Subject</th><th>Direct Object</th><th>Meaning</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">Iu</td><td class="nv">me</td><td>me</td><td><span class="nv">Ila me vide</span> — She sees me</td></tr>
+      <tr><td class="nv">Tu</td><td class="nv">te</td><td>you</td><td><span class="nv">Iu te amo</span> — I love you</td></tr>
+      <tr><td class="nv">Il</td><td class="nv">lo</td><td>him / it (masc.)</td><td><span class="nv">Lo vide</span> — (She/he) sees him</td></tr>
+      <tr><td class="nv">Ila</td><td class="nv">la</td><td>her / it (fem.)</td><td><span class="nv">La escucho</span> — (I/he/she) listens to her</td></tr>
+      <tr><td class="nv">Nu</td><td class="nv">nos</td><td>us</td><td><span class="nv">Ilos nos viden</span> — They see us</td></tr>
+      <tr><td class="nv">Voi</td><td class="nv">vos</td><td>you all</td><td><span class="nv">Ilu vos ama</span> — He loves you all</td></tr>
+      <tr><td class="nv">Ilos / Ilas</td><td class="nv">los / las</td><td>them</td><td><span class="nv">Los conoco</span> — (I) know them</td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx g"><div class="lb">Position Rule</div>
+    <p>Object pronouns go <strong>before</strong> the conjugated verb — always.</p>
+    <ul class="pl" style="margin:.7rem 0 0;">
+      <li><span class="pn g">Iu te vido.</span><span class="pe">I see you.</span></li>
+      <li><span class="pn g">Ila no me escucha.</span><span class="pe">She doesn't listen to me.</span></li>
+      <li><span class="pn g">Ke los conoces?</span><span class="pe">Do you know them?</span></li>
+      <li><span class="pn g">Nos viden cada dia.</span><span class="pe">They see us every day.</span></li>
+    </ul>
+  </div>
+
+  <div class="bx b"><div class="lb">With Future (va + infinitive)</div>
+    <p>When using the future, the object pronoun still sits before <strong>va</strong>:</p>
+    <ul class="pl" style="margin:.7rem 0 0;">
+      <li><span class="pn b">Te va chiamare.</span><span class="pe">I will call you. (will-call you)</span></li>
+      <li><span class="pn b">Los va vider mañana.</span><span class="pe">She will see them tomorrow.</span></li>
+    </ul>
+  </div>
+
+  <div class="ds"><div class="dt">Object Pronouns in Use</div>
+    <div class="de">
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#E8431C"/><circle cx="23" cy="18" r="8" fill="#F0C090"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F0C090"/><rect x="16" y="12" width="14" height="8" rx="4" fill="#4A2010"/></svg></div>
+        <div class="bw"><span class="bn">Marco</span><div class="bu"><span class="nv">Kai! Te va chiamare pos ceno.</span><span class="en">Kai! I will call you after dinner.</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Vale! Nos va vider también — no me olvides!</span><span class="en">Okay! We'll see each other too — don't forget me!</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica 4</h3><div class="sb">Practice · Object Pronouns</div>
+    <ul class="tq">
+      <li>Translate: <em>I love you</em></li>
+      <li>Translate: <em>She sees us</em></li>
+      <li>Translate: <em>Do you know them?</em></li>
+      <li>Translate: <em>He will call me tomorrow</em></li>
+      <li>Translate: <em>They don't hear her</em></li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Te amo</li>
+      <li>Ila nos vide</li>
+      <li>Los conoças? <span>or: Ke los conoças?</span></li>
+      <li>Me va chiamare mañana</li>
+      <li>Ilos no la audien</li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 5 — PROGRESSIVE & MODALS
+══════════════════════════════════════════ -->
+<section class="ch b2p" id="ch5">
+  <div class="ch-hd"><div class="ch-ey">Chapter Five</div><h2 class="ch-ti">Progressive <em>&amp; Modal Verbs</em></h2><div class="ch-rule"></div></div>
+  <div class="prose">
+    <p>The progressive tense describes something <em>currently happening</em>. Modal verbs express ability, obligation, or desire. Both expand expressive power dramatically.</p>
+  </div>
+
+  <div class="sd"><span>❧</span></div>
+  <h3 class="sh">The Progressive — estare + gerund</h3>
+  <div class="bx p"><div class="lb">Forming the Gerund</div>
+    <p><strong>-are verbs:</strong> stem + <strong>-ando</strong> &nbsp;·&nbsp; <em>parlare → parlando</em><br>
+    <strong>-ere verbs:</strong> stem + <strong>-endo</strong> &nbsp;·&nbsp; <em>videre → videndo</em></p>
+  </div>
+  <div class="cg">
+    <div class="cc"><h4>Progressive — Present</h4>
+      <div class="cr"><span class="cp">Iu *</span><span class="cf">esto parlando</span><span class="ce">I am speaking</span></div>
+      <div class="cr"><span class="cp">Tu *</span><span class="cf">estas parlando</span><span class="ce">you are speaking</span></div>
+      <div class="cr"><span class="cp">Il/Ila</span><span class="cf">esta parlando</span><span class="ce">he/she is speaking</span></div>
+      <div class="cr"><span class="cp">Nu</span><span class="cf">estamos parlando</span><span class="ce">we are speaking</span></div>
+      <div class="cr"><span class="cp">Voi</span><span class="cf">estate parlando</span><span class="ce">you all are speaking</span></div>
+      <div class="cr"><span class="cp">Ilos/Ilas</span><span class="cf">estan parlando</span><span class="ce">they are speaking</span></div>
+    </div>
+    <div class="cc"><h4>More Gerund Examples</h4>
+      <div class="cr"><span class="cf" style="font-size:.95rem;">mangiando</span><span class="ce">eating</span></div>
+      <div class="cr"><span class="cf" style="font-size:.95rem;">videndo</span><span class="ce">seeing</span></div>
+      <div class="cr"><span class="cf" style="font-size:.95rem;">andando</span><span class="ce">going</span></div>
+      <div class="cr"><span class="cf" style="font-size:.95rem;">aprendando</span><span class="ce">learning</span></div>
+      <div class="cr"><span class="cf" style="font-size:.95rem;">escribendo</span><span class="ce">writing</span></div>
+      <div class="cr"><span class="cf" style="font-size:.95rem;">leendo</span><span class="ce">reading</span></div>
+    </div>
+  </div>
+  <p style="font-size:.8rem;color:var(--muted);font-style:italic;margin-top:-.25rem;">* Iu and Tu may still be dropped — <em>Esto parlando</em> = I am speaking.</p>
+
+  <div class="sd"><span>❧</span></div>
+  <h3 class="sh">Modal Verbs</h3>
+  <div class="prose"><p>Modals precede the infinitive of the main verb — they never change the main verb.</p></div>
+
+  <table class="nt">
+    <thead><tr><th>Infinitive</th><th>Meaning</th><th>Stem</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">poder</td><td>to be able to / can</td><td class="nv">pod-</td></tr>
+      <tr><td class="nv">dever</td><td>must / have to / should</td><td class="nv">dev-</td></tr>
+      <tr><td class="nv">volere</td><td>to want to</td><td class="nv">vol-</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cg">
+    <div class="cc"><h4>poder (can / be able to)</h4>
+      <div class="cr"><span class="cp">Iu *</span><span class="cf">posso</span><span class="ce">I can</span></div>
+      <div class="cr"><span class="cp">Tu *</span><span class="cf">podas</span><span class="ce">you can</span></div>
+      <div class="cr"><span class="cp">Il/Ila</span><span class="cf">poda</span><span class="ce">he/she can</span></div>
+      <div class="cr"><span class="cp">Nu</span><span class="cf">podamos</span><span class="ce">we can</span></div>
+      <div class="cr"><span class="cp">Voi</span><span class="cf">podate</span><span class="ce">you all can</span></div>
+      <div class="cr"><span class="cp">Ilos/Ilas</span><span class="cf">podan</span><span class="ce">they can</span></div>
+    </div>
+    <div class="cc"><h4>dever (must / have to)</h4>
+      <div class="cr"><span class="cp">Iu *</span><span class="cf">devo</span><span class="ce">I must</span></div>
+      <div class="cr"><span class="cp">Tu *</span><span class="cf">devas</span><span class="ce">you must</span></div>
+      <div class="cr"><span class="cp">Il/Ila</span><span class="cf">deva</span><span class="ce">he/she must</span></div>
+      <div class="cr"><span class="cp">Nu</span><span class="cf">devamos</span><span class="ce">we must</span></div>
+      <div class="cr"><span class="cp">Voi</span><span class="cf">devate</span><span class="ce">you all must</span></div>
+      <div class="cr"><span class="cp">Ilos/Ilas</span><span class="cf">devan</span><span class="ce">they must</span></div>
+    </div>
+  </div>
+
+  <div class="bx s"><div class="lb">Modal + Infinitive Examples</div>
+    <ul class="pl" style="margin:0;">
+      <li><span class="pn s">Posso parlare Nuviá.</span><span class="pe">I can speak Nuviá.</span></li>
+      <li><span class="pn s">Devas aprendare más.</span><span class="pe">You must learn more.</span></li>
+      <li><span class="pn s">Ilos no pueden andare.</span><span class="pe">They cannot go.</span></li>
+      <li><span class="pn s">Devamos estare aquí.</span><span class="pe">We must be here.</span></li>
+    </ul>
+  </div>
+
+  <div class="ds"><div class="dt">Can You? Must You?</div>
+    <div class="de">
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Posso aprendare Nuviá rapido?</span><span class="en">Can I learn Nuviá quickly?</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#E8431C"/><circle cx="23" cy="18" r="8" fill="#F0C090"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F0C090"/><rect x="16" y="12" width="14" height="8" rx="4" fill="#4A2010"/></svg></div>
+        <div class="bw"><span class="bn">Marco</span><div class="bu"><span class="nv">Sí! Ma devas practicare cada dia.</span><span class="en">Yes! But you must practice every day.</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Esto aprendando já! Vide — esto parlando Nuviá!</span><span class="en">I'm already learning! Look — I'm speaking Nuviá!</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica 5</h3><div class="sb">Practice · Progressive &amp; Modals</div>
+    <ul class="tq">
+      <li>Form the gerund of: <em>amare, mangiare, videre, escribere</em></li>
+      <li>Translate: <em>She is eating right now</em></li>
+      <li>Translate: <em>I can speak Nuviá</em></li>
+      <li>Translate: <em>They must go</em></li>
+      <li>Translate: <em>We are learning while we eat</em></li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>amando · mangiando · videndo · escribendo</li>
+      <li>Ila esta mangiando agora</li>
+      <li>Posso parlare Nuviá</li>
+      <li>Ilos devan andare</li>
+      <li>Estamos aprendando mientras mangiamos</li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 6 — COMPARATIVES & SUPERLATIVES
+══════════════════════════════════════════ -->
+<section class="ch b2c" id="ch6">
+  <div class="ch-hd"><div class="ch-ey">Chapter Six</div><h2 class="ch-ti">Comparatives <em>&amp; Superlatives</em></h2><div class="ch-rule"></div></div>
+  <div class="prose"><p>Nuviá expresses comparison with invariable particles placed before adjectives. The structure is simple and consistent across all words.</p></div>
+
+  <table class="nt">
+    <thead><tr><th>Type</th><th>Structure</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>More than</td><td class="nv">più + adj + de</td><td><span class="nv">Il car est più rapido de il bico.</span> The car is faster than the bike.</td></tr>
+      <tr><td>Less than</td><td class="nv">menos + adj + de</td><td><span class="nv">Il te est menos forte de il cafe.</span> The tea is less strong than the coffee.</td></tr>
+      <tr><td>As … as</td><td class="nv">(tanto) … como</td><td><span class="nv">Luna est tanto bela como Sofia.</span> Luna is as beautiful as Sofia.</td></tr>
+      <tr><td>Superlative</td><td class="nv">il/la più + adj</td><td><span class="nv">Est il più grande.</span> It is the biggest.</td></tr>
+      <tr><td>Least of all</td><td class="nv">il/la menos + adj</td><td><span class="nv">Est la menos cara.</span> It is the least expensive.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx coral"><div class="lb">Irregular Comparatives</div>
+    <p>Two adjectives have irregular comparative forms used alongside (or instead of) the regular forms:</p>
+    <table class="nt" style="margin:.75rem 0 0;">
+      <thead><tr><th>Adjective</th><th>Regular</th><th>Irregular (common)</th></tr></thead>
+      <tbody>
+        <tr><td class="nv">bono (good)</td><td class="nv">più bono</td><td class="nv">mejor (better) · il mejor (best)</td></tr>
+        <tr><td class="nv">malo (bad)</td><td class="nv">più malo</td><td class="nv">peor (worse) · il peor (worst)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bx b"><div class="lb">Comparison Examples</div>
+    <ul class="pl" style="margin:0;">
+      <li><span class="pn b">Il libro est più interesante de il film.</span><span class="pe">The book is more interesting than the film.</span></li>
+      <li><span class="pn b">Parlo mejor pos practicar.</span><span class="pe">I speak better after practicing.</span></li>
+      <li><span class="pn b">La casa est tanto grande como la escola.</span><span class="pe">The house is as big as the school.</span></li>
+      <li><span class="pn b">Est il peor cafe del mundo.</span><span class="pe">It's the worst coffee in the world.</span></li>
+    </ul>
+  </div>
+
+  <div class="ts"><h3>Pratica 6</h3><div class="sb">Practice · Comparatives</div>
+    <ul class="tq">
+      <li>Translate: <em>The sea is more beautiful than the sky</em></li>
+      <li>Translate: <em>She speaks better than me</em></li>
+      <li>Translate: <em>This book is the most interesting</em></li>
+      <li>Translate: <em>Coffee is as strong as tea</em></li>
+      <li>Translate: <em>Today is the worst day</em></li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Il mar est più belo de il ciel</li>
+      <li>Ila parla mejor de me</li>
+      <li>Questo libro est il più interesante</li>
+      <li>Il cafe est tanto forte como il te</li>
+      <li>Oggi est il peor dia</li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 7 — TIME, DAYS & DATES
+══════════════════════════════════════════ -->
+<section class="ch b2s" id="ch7">
+  <div class="ch-hd"><div class="ch-ey">Chapter Seven</div><h2 class="ch-ti">Time, Days <em>&amp; Dates</em></h2><div class="ch-rule"></div></div>
+  <div class="prose"><p>Nuviá's time vocabulary follows Romance patterns — days are derived from celestial and classical names, months follow the standard Latin roots.</p></div>
+
+  <div class="sd"><span>❧</span></div>
+  <h3 class="sh">Telling Time</h3>
+  <table class="nt">
+    <thead><tr><th>Nuviá</th><th>English</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">Ke ora est?</td><td>What time is it?</td></tr>
+      <tr><td class="nv">Est la una.</td><td>It is 1:00.</td></tr>
+      <tr><td class="nv">Est le du.</td><td>It is 2:00.</td></tr>
+      <tr><td class="nv">Est le tri e meza.</td><td>It is 3:30.</td></tr>
+      <tr><td class="nv">Est le quar e un quar.</td><td>It is 4:15.</td></tr>
+      <tr><td class="nv">Est le quin menos un quar.</td><td>It is 4:45 (five minus a quarter).</td></tr>
+      <tr><td class="nv">de matina</td><td>in the morning</td></tr>
+      <tr><td class="nv">de sera</td><td>in the evening</td></tr>
+      <tr><td class="nv">de nocte</td><td>at night</td></tr>
+      <tr><td class="nv">agora</td><td>now</td></tr>
+      <tr><td class="nv">presto</td><td>soon</td></tr>
+      <tr><td class="nv">já</td><td>already</td></tr>
+      <tr><td class="nv">sempre</td><td>always</td></tr>
+      <tr><td class="nv">nunca</td><td>never</td></tr>
+      <tr><td class="nv">cada dia</td><td>every day</td></tr>
+      <tr><td class="nv">ogi</td><td>today</td></tr>
+      <tr><td class="nv">mañana</td><td>tomorrow</td></tr>
+      <tr><td class="nv">aiér</td><td>yesterday</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sd"><span>❧</span></div>
+  <h3 class="sh">Days of the Week</h3>
+  <div class="day-grid">
+    <div class="day-card"><span class="day-nv">il lunia</span><span class="day-en">Monday</span></div>
+    <div class="day-card"><span class="day-nv">il martia</span><span class="day-en">Tuesday</span></div>
+    <div class="day-card"><span class="day-nv">il mercia</span><span class="day-en">Wednesday</span></div>
+    <div class="day-card"><span class="day-nv">il jouvia</span><span class="day-en">Thursday</span></div>
+    <div class="day-card"><span class="day-nv">il venia</span><span class="day-en">Friday</span></div>
+    <div class="day-card"><span class="day-nv">il satia</span><span class="day-en">Saturday</span></div>
+    <div class="day-card"><span class="day-nv">il donia</span><span class="day-en">Sunday</span></div>
+  </div>
+
+  <div class="sd"><span>❧</span></div>
+  <h3 class="sh">Months of the Year</h3>
+  <div class="month-grid">
+    <div class="month-card"><div class="month-num">01</div><span class="month-nv">janero</span></div>
+    <div class="month-card"><div class="month-num">02</div><span class="month-nv">febreo</span></div>
+    <div class="month-card"><div class="month-num">03</div><span class="month-nv">marzo</span></div>
+    <div class="month-card"><div class="month-num">04</div><span class="month-nv">aprilo</span></div>
+    <div class="month-card"><div class="month-num">05</div><span class="month-nv">mago</span></div>
+    <div class="month-card"><div class="month-num">06</div><span class="month-nv">junio</span></div>
+    <div class="month-card"><div class="month-num">07</div><span class="month-nv">julio</span></div>
+    <div class="month-card"><div class="month-num">08</div><span class="month-nv">agosto</span></div>
+    <div class="month-card"><div class="month-num">09</div><span class="month-nv">septembo</span></div>
+    <div class="month-card"><div class="month-num">10</div><span class="month-nv">octobro</span></div>
+    <div class="month-card"><div class="month-num">11</div><span class="month-nv">novembro</span></div>
+    <div class="month-card"><div class="month-num">12</div><span class="month-nv">decembro</span></div>
+  </div>
+
+  <div class="bx s"><div class="lb">Expressing Dates</div>
+    <p>Dates use the pattern: <strong>number + de + month</strong> (with <em>del</em> for masculine months that start with consonants).</p>
+    <ul class="pl" style="margin:.7rem 0 0;">
+      <li><span class="pn s">Il du de marzo</span><span class="pe">March 2nd</span></li>
+      <li><span class="pn s">Il des-quin de julio</span><span class="pe">July 15th</span></li>
+      <li><span class="pn s">Il un de janero</span><span class="pe">January 1st</span></li>
+    </ul>
+  </div>
+
+  <div class="ts"><h3>Pratica 7</h3><div class="sb">Practice · Time &amp; Dates</div>
+    <ul class="tq">
+      <li>How do you ask "What time is it?" in Nuviá?</li>
+      <li>Translate: <em>It is 6:30 in the evening</em></li>
+      <li>What day comes after <em>il mercia</em>?</li>
+      <li>Translate: <em>I always eat at 8 in the morning</em></li>
+      <li>Translate: <em>Yesterday was Saturday, today is Sunday</em></li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Ke ora est?</li>
+      <li>Est le ses e meza de sera</li>
+      <li>Il jouvia (Thursday)</li>
+      <li>Sempre mangio a le oto de matina</li>
+      <li>Aiér estea il satia, ogi est il donia</li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 8 — COLORS & EXPANDED DESCRIPTIONS
+══════════════════════════════════════════ -->
+<section class="ch b2g" id="ch8">
+  <div class="ch-hd"><div class="ch-ey">Chapter Eight</div><h2 class="ch-ti">Colors <em>&amp; Descriptions</em></h2><div class="ch-rule"></div></div>
+  <div class="prose"><p>Colors in Nuviá follow the same adjective agreement rules from Book One — most agree in gender and number, though some are invariable.</p></div>
+
+  <div class="color-grid">
+    <div class="color-swatch"><div class="swatch-block" style="background:#CC2222;"></div><div class="swatch-info"><span class="swatch-nv">rosso/rossa</span><span class="swatch-en">red</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#2255CC;"></div><div class="swatch-info"><span class="swatch-nv">blu</span><span class="swatch-en">blue (inv.)</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#228833;"></div><div class="swatch-info"><span class="swatch-nv">verde</span><span class="swatch-en">green (inv.)</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#DDCC00;"></div><div class="swatch-info"><span class="swatch-nv">gialo/giala</span><span class="swatch-en">yellow</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#F5F5F0; border-bottom:1px solid var(--border);"></div><div class="swatch-info"><span class="swatch-nv">bianco/bianca</span><span class="swatch-en">white</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#1A1A1A;"></div><div class="swatch-info"><span class="swatch-nv">negro/negra</span><span class="swatch-en">black</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#E06010;"></div><div class="swatch-info"><span class="swatch-nv">narango/naranga</span><span class="swatch-en">orange</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#7030B8;"></div><div class="swatch-info"><span class="swatch-nv">viola</span><span class="swatch-en">purple (inv.)</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#EE88AA;"></div><div class="swatch-info"><span class="swatch-nv">rosa</span><span class="swatch-en">pink (inv.)</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#8B5E3C;"></div><div class="swatch-info"><span class="swatch-nv">marron</span><span class="swatch-en">brown (inv.)</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#888888;"></div><div class="swatch-info"><span class="swatch-nv">griso/grisa</span><span class="swatch-en">gray</span></div></div>
+    <div class="color-swatch"><div class="swatch-block" style="background:#D4A010;"></div><div class="swatch-info"><span class="swatch-nv">dorado/dorada</span><span class="swatch-en">golden</span></div></div>
+  </div>
+
+  <div class="bx b"><div class="lb">Agreement in Practice</div>
+    <p><strong>Invariable colors</strong> (blu, verde, viola, rosa, marron) never change form.<br>
+    <strong>Variable colors</strong> add -a for feminine singular, -i for masc. plural, -e for fem. plural.</p>
+    <ul class="pl" style="margin:.7rem 0 0;">
+      <li><span class="pn b">il car rosso</span><span class="pe">the red car (masc. sg.)</span></li>
+      <li><span class="pn b">la casa rossa</span><span class="pe">the red house (fem. sg.)</span></li>
+      <li><span class="pn b">i cari rossi</span><span class="pe">the red cars (masc. pl.)</span></li>
+      <li><span class="pn b">le case rosse</span><span class="pe">the red houses (fem. pl.)</span></li>
+      <li><span class="pn b">la porta blu</span><span class="pe">the blue door (invariable)</span></li>
+      <li><span class="pn b">le porte blu</span><span class="pe">the blue doors (still blu)</span></li>
+    </ul>
+  </div>
+
+  <div class="ts"><h3>Pratica 8</h3><div class="sb">Practice · Colors</div>
+    <ul class="tq">
+      <li>Translate: <em>The yellow car</em></li>
+      <li>Translate: <em>The blue houses</em> (invariable!)</li>
+      <li>Translate: <em>I see a black cat and a white dog</em></li>
+      <li>Translate: <em>Her dress is purple</em></li>
+      <li>Describe something near you using at least two colors.</li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Il car gialo</li>
+      <li>Le case blu <span>— blu never changes</span></li>
+      <li>Vido un gato negro e un cano bianco</li>
+      <li>Il vestido de Ila est viola</li>
+      <li><em>Open answer — check agreement matches noun gender/number.</em></li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 9 — PLACES & DIRECTIONS
+══════════════════════════════════════════ -->
+<section class="ch b2p" id="ch9">
+  <div class="ch-hd"><div class="ch-ey">Chapter Nine</div><h2 class="ch-ti">Places <em>&amp; Directions</em></h2><div class="ch-rule"></div></div>
+  <div class="prose"><p>Getting around in Nuviá requires vocabulary for places and a set of direction words. Combined with the prepositions from Chapter 2, you can describe any location.</p></div>
+
+  <h3 class="sh">Places</h3>
+  <table class="nt">
+    <thead><tr><th>Nuviá</th><th>English</th><th>Article</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">ciudá</td><td>city</td><td class="nv">la ciudá</td></tr>
+      <tr><td class="nv">vilago</td><td>town / village</td><td class="nv">il vilago</td></tr>
+      <tr><td class="nv">strada</td><td>street / road</td><td class="nv">la strada</td></tr>
+      <tr><td class="nv">parko</td><td>park</td><td class="nv">il parko</td></tr>
+      <tr><td class="nv">tienda</td><td>shop / store</td><td class="nv">la tienda</td></tr>
+      <tr><td class="nv">mercato</td><td>market</td><td class="nv">il mercato</td></tr>
+      <tr><td class="nv">escola</td><td>school</td><td class="nv">la escola</td></tr>
+      <tr><td class="nv">hospitalo</td><td>hospital</td><td class="nv">il hospitalo</td></tr>
+      <tr><td class="nv">glesia</td><td>church</td><td class="nv">la glesia</td></tr>
+      <tr><td class="nv">restauranto</td><td>restaurant</td><td class="nv">il restauranto</td></tr>
+      <tr><td class="nv">aeroporto</td><td>airport</td><td class="nv">il aeroporto</td></tr>
+      <tr><td class="nv">biblioteca</td><td>library</td><td class="nv">la biblioteca</td></tr>
+      <tr><td class="nv">ponte</td><td>bridge</td><td class="nv">il ponte</td></tr>
+      <tr><td class="nv">plaza</td><td>square / plaza</td><td class="nv">la plaza</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sh">Directions</h3>
+  <table class="nt">
+    <thead><tr><th>Nuviá</th><th>English</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">a destra</td><td>to the right</td></tr>
+      <tr><td class="nv">a sinistra</td><td>to the left</td></tr>
+      <tr><td class="nv">directo / recto</td><td>straight ahead</td></tr>
+      <tr><td class="nv">aquí</td><td>here</td></tr>
+      <tr><td class="nv">lá</td><td>there</td></tr>
+      <tr><td class="nv">cerca</td><td>near / close</td></tr>
+      <tr><td class="nv">longe</td><td>far</td></tr>
+      <tr><td class="nv">a il lado de</td><td>next to</td></tr>
+      <tr><td class="nv">en fronte de</td><td>in front of</td></tr>
+      <tr><td class="nv">detrás de</td><td>behind</td></tr>
+      <tr><td class="nv">norte / sur / este / oveste</td><td>north / south / east / west</td></tr>
+    </tbody>
+  </table>
+
+  <div class="ds"><div class="dt">Asking for Directions</div>
+    <div class="de">
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Per favor, onde est il restauranto?</span><span class="en">Excuse me, where is the restaurant?</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#C98A0A"/><circle cx="23" cy="18" r="8" fill="#F8D8B0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F8D8B0"/><path d="M15 14 Q23 9 31 14 Q29 10 23 9 Q17 10 15 14Z" fill="#3A1A08"/></svg></div>
+        <div class="bw"><span class="bn">Sofia</span><div class="bu"><span class="nv">Anda recto, luego a destra. Est a il lado del parko.</span><span class="en">Go straight, then to the right. It's next to the park.</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Est longe de aquí?</span><span class="en">Is it far from here?</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#C98A0A"/><circle cx="23" cy="18" r="8" fill="#F8D8B0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F8D8B0"/><path d="M15 14 Q23 9 31 14 Q29 10 23 9 Q17 10 15 14Z" fill="#3A1A08"/></svg></div>
+        <div class="bw"><span class="bn">Sofia</span><div class="bu"><span class="nv">No, est muy cerca. Des minutos a pié.</span><span class="en">No, it's very close. Ten minutes on foot.</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica 9</h3><div class="sb">Practice · Places &amp; Directions</div>
+    <ul class="tq">
+      <li>Translate: <em>The library is next to the park</em></li>
+      <li>Translate: <em>Go straight and then to the left</em></li>
+      <li>Translate: <em>Where is the airport?</em></li>
+      <li>Translate: <em>The market is far from the school</em></li>
+      <li>Give directions from your home to a nearby place, in Nuviá.</li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>La biblioteca est a il lado del parko</li>
+      <li>Anda recto e luego a sinistra</li>
+      <li>Onde est il aeroporto?</li>
+      <li>Il mercato est longe de la escola</li>
+      <li><em>Open answer — check use of prepositions and direction words.</em></li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 10 — FOOD & DAILY LIFE
+══════════════════════════════════════════ -->
+<section class="ch b2s" id="ch10">
+  <div class="ch-hd"><div class="ch-ey">Chapter Ten</div><h2 class="ch-ti">Food <em>&amp; Daily Life</em></h2><div class="ch-rule"></div></div>
+  <div class="prose"><p>Everyday vocabulary for food, drink, and daily routines — the building blocks of real conversation.</p></div>
+
+  <h3 class="sh">Food &amp; Drink</h3>
+  <table class="nt">
+    <thead><tr><th>Nuviá</th><th>English</th><th>Article</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">pane</td><td>bread</td><td class="nv">il pane</td></tr>
+      <tr><td class="nv">agua</td><td>water</td><td class="nv">il agua</td></tr>
+      <tr><td class="nv">vino</td><td>wine</td><td class="nv">il vino</td></tr>
+      <tr><td class="nv">carne</td><td>meat</td><td class="nv">la carne</td></tr>
+      <tr><td class="nv">pesce</td><td>fish</td><td class="nv">il pesce</td></tr>
+      <tr><td class="nv">fruta</td><td>fruit</td><td class="nv">la fruta</td></tr>
+      <tr><td class="nv">vegetal</td><td>vegetable</td><td class="nv">il vegetal</td></tr>
+      <tr><td class="nv">cafe</td><td>coffee</td><td class="nv">il cafe</td></tr>
+      <tr><td class="nv">te</td><td>tea</td><td class="nv">il te</td></tr>
+      <tr><td class="nv">lecho</td><td>milk</td><td class="nv">il lecho</td></tr>
+      <tr><td class="nv">sopa</td><td>soup</td><td class="nv">la sopa</td></tr>
+      <tr><td class="nv">riso</td><td>rice</td><td class="nv">il riso</td></tr>
+      <tr><td class="nv">pasta</td><td>pasta</td><td class="nv">la pasta</td></tr>
+      <tr><td class="nv">formago</td><td>cheese</td><td class="nv">il formago</td></tr>
+      <tr><td class="nv">ovo</td><td>egg</td><td class="nv">il ovo</td></tr>
+      <tr><td class="nv">dulce</td><td>sweet / dessert</td><td class="nv">il dulce</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sh">Useful Daily Life Phrases</h3>
+  <ul class="pl">
+    <li><span class="pn">Habeo fame.</span><span class="pe">I am hungry. (I have hunger.)</span></li>
+    <li><span class="pn">Habeo sede.</span><span class="pe">I am thirsty. (I have thirst.)</span></li>
+    <li><span class="pn">Il ceno est pronto.</span><span class="pe">Dinner is ready.</span></li>
+    <li><span class="pn">Ke volos mangiare?</span><span class="pe">What do you want to eat?</span></li>
+    <li><span class="pn">Est delicioso!</span><span class="pe">It is delicious!</span></li>
+    <li><span class="pn">Por favor, il menú.</span><span class="pe">The menu, please.</span></li>
+    <li><span class="pn">Il conto, per favor.</span><span class="pe">The bill, please.</span></li>
+    <li><span class="pn">Mangio en il restauranto.</span><span class="pe">I eat at the restaurant.</span></li>
+  </ul>
+
+  <div class="ds"><div class="dt">At the Restaurant</div>
+    <div class="de">
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#E8431C"/><circle cx="23" cy="18" r="8" fill="#F0C090"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F0C090"/><rect x="16" y="12" width="14" height="8" rx="4" fill="#4A2010"/></svg></div>
+        <div class="bw"><span class="bn">Marco</span><div class="bu"><span class="nv">Habeo fame! Ke volos mangiare, Luna?</span><span class="en">I'm hungry! What do you want to eat, Luna?</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Volo pasta con formago. E tu?</span><span class="en">I want pasta with cheese. And you?</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#E8431C"/><circle cx="23" cy="18" r="8" fill="#F0C090"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F0C090"/><rect x="16" y="12" width="14" height="8" rx="4" fill="#4A2010"/></svg></div>
+        <div class="bw"><span class="bn">Marco</span><div class="bu"><span class="nv">Volo pesce con riso. Pos, devo mangiare il dulce!</span><span class="en">I want fish with rice. After, I must eat dessert!</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica 10</h3><div class="sb">Practice · Food &amp; Daily Life</div>
+    <ul class="tq">
+      <li>How do you say "I am hungry" in Nuviá?</li>
+      <li>Translate: <em>What do you want to eat?</em></li>
+      <li>Translate: <em>Bread with cheese, please</em></li>
+      <li>Translate: <em>The coffee is delicious</em></li>
+      <li>Describe a meal you would order, in Nuviá.</li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Habeo fame</li>
+      <li>Ke volos mangiare?</li>
+      <li>Pane con formago, per favor</li>
+      <li>Il cafe est delicioso</li>
+      <li><em>Open answer — check vocabulary and grammar.</em></li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 11 — FEELINGS & EMOTIONS
+══════════════════════════════════════════ -->
+<section class="ch b2c" id="ch11">
+  <div class="ch-hd"><div class="ch-ey">Chapter Eleven</div><h2 class="ch-ti">Feelings <em>&amp; Emotions</em></h2><div class="ch-rule"></div></div>
+  <div class="prose"><p>Expressing emotion is central to real conversation. Many emotion words are nouns — Nuviá uses <em>habere</em> (to have) or <em>sentire</em> (to feel) to express them.</p></div>
+
+  <table class="nt">
+    <thead><tr><th>Nuviá</th><th>English</th><th>Usage</th></tr></thead>
+    <tbody>
+      <tr><td class="nv">il amoro</td><td>love</td><td>Habeo amoro por tu — I love you (lit. I have love for you)</td></tr>
+      <tr><td class="nv">la alegria</td><td>happiness / joy</td><td>Siento alegria — I feel joy</td></tr>
+      <tr><td class="nv">la tristesa</td><td>sadness</td><td>Habeo tristesa — I feel sad</td></tr>
+      <tr><td class="nv">il timoro</td><td>fear</td><td>Habeo timoro — I am afraid</td></tr>
+      <tr><td class="nv">la speransa</td><td>hope</td><td>Habeo speransa — I have hope</td></tr>
+      <tr><td class="nv">la sorpresa</td><td>surprise</td><td>Que sorpresa! — What a surprise!</td></tr>
+      <tr><td class="nv">la rabia</td><td>anger</td><td>Siento rabia — I feel anger</td></tr>
+      <tr><td class="nv">la calmesa</td><td>calmness</td><td>Habeo calmesa — I am calm</td></tr>
+      <tr><td class="nv">il orgulo</td><td>pride</td><td>Siento orgulo — I feel proud</td></tr>
+      <tr><td class="nv">la curiositá</td><td>curiosity</td><td>Habeo curiositá — I am curious</td></tr>
+      <tr><td class="nv">la gelesia</td><td>jealousy</td><td>Siento gelesia — I feel jealous</td></tr>
+      <tr><td class="nv">il streso</td><td>stress</td><td>Habeo multo streso — I have a lot of stress</td></tr>
+    </tbody>
+  </table>
+
+  <div class="bx p"><div class="lb">Feeling Adjectives (Quick Form)</div>
+    <p>When describing emotional state directly with <em>estare</em>, use the adjective form:</p>
+    <ul class="pl" style="margin:.7rem 0 0;">
+      <li><span class="pn p">felice / triste</span><span class="pe">happy / sad (Book 1)</span></li>
+      <li><span class="pn p">alegro / alegra</span><span class="pe">joyful</span></li>
+      <li><span class="pn p">timoro / timora</span><span class="pe">afraid</span></li>
+      <li><span class="pn p">calmo / calma</span><span class="pe">calm</span></li>
+      <li><span class="pn p">orguloso / orgulosa</span><span class="pe">proud</span></li>
+      <li><span class="pn p">stresado / stresada</span><span class="pe">stressed</span></li>
+      <li><span class="pn p">sorpresado / sorpresada</span><span class="pe">surprised</span></li>
+    </ul>
+  </div>
+
+  <div class="ds"><div class="dt">How Are You Really?</div>
+    <div class="de">
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Luna, komo te sientes oggi?</span><span class="en">Luna, how do you feel today?</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Siento alegria porque parleo Nuviá bien já!</span><span class="en">I feel joy because I already speak Nuviá well!</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Siento orgulo de tu, amiga!</span><span class="en">I feel proud of you, friend!</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica 11</h3><div class="sb">Practice · Feelings</div>
+    <ul class="tq">
+      <li>Translate: <em>I am happy today</em> (use adjective form)</li>
+      <li>Translate: <em>She feels sadness because she is alone</em></li>
+      <li>Translate: <em>We have hope</em></li>
+      <li>Translate: <em>I love you</em> (use habere + amoro)</li>
+      <li>Describe how you feel right now, in Nuviá.</li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li>Esto felice oggi</li>
+      <li>Ila siente tristesa porque esta sola</li>
+      <li>Habemos speransa</li>
+      <li>Habeo amoro por tu</li>
+      <li><em>Open answer — check verb choice (estare adj. or habere/sentire noun).</em></li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CH 12 — EXTENDED DIALOGUES
+══════════════════════════════════════════ -->
+<section class="ch b2g" id="ch12">
+  <div class="ch-hd"><div class="ch-ey">Chapter Twelve</div><h2 class="ch-ti">Extended <em>Dialogues</em></h2><div class="ch-rule"></div></div>
+  <div class="prose">
+    <p>This final chapter of Book Two brings everything together. Three extended dialogues — a café conversation, a trip to the market, and a farewell — use vocabulary and grammar from both books. Read aloud and pay attention to how the structures combine naturally.</p>
+  </div>
+
+  <div class="sd"><span>❧</span></div>
+  <h3 class="sh">Dialogue 1 — Un Cafe con Amicos</h3>
+  <div class="ds"><div class="dt">A Coffee with Friends — Sunday Morning</div>
+    <div class="de">
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#C98A0A"/><circle cx="23" cy="18" r="8" fill="#F8D8B0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F8D8B0"/><path d="M15 14 Q23 9 31 14 Q29 10 23 9 Q17 10 15 14Z" fill="#3A1A08"/></svg></div>
+        <div class="bw"><span class="bn">Sofia</span><div class="bu"><span class="nv">Bon dia, amicos! Ke volos beber? Habeo cafe e te.</span><span class="en">Good morning, friends! What do you want to drink? I have coffee and tea.</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#E8431C"/><circle cx="23" cy="18" r="8" fill="#F0C090"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F0C090"/><rect x="16" y="12" width="14" height="8" rx="4" fill="#4A2010"/></svg></div>
+        <div class="bw"><span class="bn">Marco</span><div class="bu"><span class="nv">Volo cafe sin lecho, grátie. Esto muy stresado — devo trabajare oggi.</span><span class="en">I want coffee without milk, thanks. I'm very stressed — I have to work today.</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Aunque est il donia, devas trabajare? Que tristesa!</span><span class="en">Even though it's Sunday, you have to work? How sad!</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#E8431C"/><circle cx="23" cy="18" r="8" fill="#F0C090"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F0C090"/><rect x="16" y="12" width="14" height="8" rx="4" fill="#4A2010"/></svg></div>
+        <div class="bw"><span class="bn">Marco</span><div class="bu"><span class="nv">Sí, ma pos, volo mangiare la pasta más deliciosa del mundo con vos!</span><span class="en">Yes, but afterward, I want to eat the most delicious pasta in the world with you all!</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#C98A0A"/><circle cx="23" cy="18" r="8" fill="#F8D8B0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F8D8B0"/><path d="M15 14 Q23 9 31 14 Q29 10 23 9 Q17 10 15 14Z" fill="#3A1A08"/></svg></div>
+        <div class="bw"><span class="bn">Sofia</span><div class="bu"><span class="nv">Entonces te va vider al restauranto a le oto de sera!</span><span class="en">Then we'll see you at the restaurant at 8 in the evening!</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sd"><span>❧</span></div>
+  <h3 class="sh">Dialogue 2 — Al Mercato</h3>
+  <div class="ds"><div class="dt">At the Market — Saturday Morning</div>
+    <div class="de">
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Ke frutas habetes oggi? Habeo fame e volo comprar algo.</span><span class="en">What fruits do you have today? I'm hungry and want to buy something.</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2A7A52"/><circle cx="23" cy="18" r="8" fill="#C0E8D0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C0E8D0"/><rect x="17" y="13" width="12" height="7" rx="3.5" fill="#0A3820"/></svg></div>
+        <div class="bw"><span class="bn">Vendero</span><div class="bu"><span class="nv">Habeo manzanas rosse, narangos e frutas giala. Ilos son frescos!</span><span class="en">I have red apples, oranges and yellow fruits. They're fresh!</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2558C4"/><circle cx="23" cy="18" r="8" fill="#C8E898"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C8E898"/><path d="M16 12 Q23 9 30 12 L30 16 Q23 13 16 16Z" fill="#3A2808"/></svg></div>
+        <div class="bw"><span class="bn">Kai</span><div class="bu"><span class="nv">Perfecto! Dáme tri manzanas e du narangos, per favor. Ke precio?</span><span class="en">Perfect! Give me three apples and two oranges, please. What's the price?</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#2A7A52"/><circle cx="23" cy="18" r="8" fill="#C0E8D0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#C0E8D0"/><rect x="17" y="13" width="12" height="7" rx="3.5" fill="#0A3820"/></svg></div>
+        <div class="bw"><span class="bn">Vendero</span><div class="bu"><span class="nv">Est il precio más bono del mercato. Grátie e bon dia!</span><span class="en">It's the best price in the market. Thank you and good day!</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sd"><span>❧</span></div>
+  <h3 class="sh">Dialogue 3 — Un Adío</h3>
+  <div class="ds"><div class="dt">A Farewell — End of Book Two</div>
+    <div class="de">
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Amicos, devo andare. Habeo alegria porque parleamos tanto!</span><span class="en">Friends, I have to go. I'm happy because we talked so much!</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#E8431C"/><circle cx="23" cy="18" r="8" fill="#F0C090"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F0C090"/><rect x="16" y="12" width="14" height="8" rx="4" fill="#4A2010"/></svg></div>
+        <div class="bw"><span class="bn">Marco</span><div class="bu"><span class="nv">Va con bien! Te va vider presto. Parlas Nuviá mejor cada dia.</span><span class="en">Go well! We'll see you soon. You speak Nuviá better every day.</span></div></div>
+      </div>
+      <div class="dm r">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#C98A0A"/><circle cx="23" cy="18" r="8" fill="#F8D8B0"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#F8D8B0"/><path d="M15 14 Q23 9 31 14 Q29 10 23 9 Q17 10 15 14Z" fill="#3A1A08"/></svg></div>
+        <div class="bw"><span class="bn">Sofia</span><div class="bu"><span class="nv">E no olvides — il libro tri te va esperar!</span><span class="en">And don't forget — Book Three will be waiting for you!</span></div></div>
+      </div>
+      <div class="dm">
+        <div class="av"><svg viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#7030B8"/><circle cx="23" cy="18" r="8" fill="#DCC8F8"/><ellipse cx="23" cy="38" rx="11" ry="8" fill="#DCC8F8"/><path d="M15 14 Q23 8 31 14 L30 19 Q23 15 16 19Z" fill="#2A0860"/><path d="M14 18 Q16 23 18 21" stroke="#2A0860" stroke-width="1.5" fill="none"/><path d="M32 18 Q30 23 28 21" stroke="#2A0860" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="bw"><span class="bn">Luna</span><div class="bu"><span class="nv">Adío, amicos! La cora parla sempre — en Nuviá o sin palabre.</span><span class="en">Goodbye, friends! The heart always speaks — in Nuviá or without words.</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts"><h3>Pratica Finale</h3><div class="sb">Final Practice · Book Two</div>
+    <ul class="tq">
+      <li>Write a 3-sentence description of your morning routine in Nuviá, using at least one progressive form.</li>
+      <li>Translate Dialogue 1's first three lines from memory, without looking.</li>
+      <li>Give directions from the market to the library in Nuviá (invent the route).</li>
+      <li>Translate: <em>Although I must work, I feel happy because I'm learning Nuviá</em>.</li>
+      <li>Write a goodbye message to a friend, in Nuviá, using at least 3 different grammar concepts from Book Two.</li>
+    </ul>
+    <button class="at" onclick="ta(this)">Show Answers</button>
+    <div class="ak"><ol>
+      <li><em>Open answer — check: progressive (estare + gerund), correct verb endings, and vocabulary.</em></li>
+      <li>Bon dia, amicos! Ke volos beber? Habeo cafe e te. / Volo cafe sin lecho, grátie. Esto muy stresado — devo trabajare oggi. / Aunque est il donia, devas trabajare? Que tristesa!</li>
+      <li><em>Open answer — check: use of recto/a destra/a sinistra, cerca/longe, prepositions de/en/a il lado de.</em></li>
+      <li>Aunque devo trabajare, esto felice porque esto aprendando Nuviá</li>
+      <li><em>Open answer — check for: conjunction, object pronoun or modal, time or emotion vocabulary.</em></li>
+    </ol></div>
+  </div>
+</section>
+
+<footer id="ft">
+  <div class="fl">Nuviá</div>
+  <p>Book Two &nbsp;·&nbsp; Il Libro Avanzato</p>
+  <p style="margin-top:.3rem;">Il libro tri te va esperar.</p>
+</footer>
+
+</div><!-- /main -->
+<script src="main.js"></script>
+</body>
+</html>
